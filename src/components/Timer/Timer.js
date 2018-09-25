@@ -5,7 +5,7 @@ export default class Timer extends React.Component {
         super(props);
         
         this.state = {
-            timer: 10
+            timer: 3
         };
   
         this.intervalId = undefined;
