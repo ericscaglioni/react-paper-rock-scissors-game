@@ -2,17 +2,6 @@ import React from 'react';
 import UserOptions from '../UserOptions/UserOptions.js';
 import RoundResult from '../RoundResult/RoundResult.js';
 
-// const Game = (props) => (
-//     <div>
-//         <UserOptions
-//             gameOptions={props.gameOptions}
-//             handleSelectOption={props.handleSelectOption}
-//         />
-//     </div>
-// );
-
-// export default Game;
-
 export default class Game extends React.Component {
     constructor(){
         super();
@@ -75,6 +64,7 @@ export default class Game extends React.Component {
                         userSelectedOption={this.state.userSelectedOption}
                         computerSelectedOption={this.state.computerSelectedOption}
                         handleNextRoundClick={this.handleNextRoundClick}
+                        handleFinishGameClick={this.props.handleFinishGameClick}
                     />
                 }
             </div>

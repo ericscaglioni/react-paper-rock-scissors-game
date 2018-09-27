@@ -12,7 +12,10 @@ export default class GameBoard extends Component {
         };
     }
 
-    handleStartGameClick = () => (this.setState(() => ({gameStarted: true})));
+    handleStartGameClick = () => (this.setState(() => ({
+        gameStarted: true,
+        gameFinished: false
+    })));
 
     handleFinishGameClick = () => (this.setState(() => ({
         gameStarted: false,
@@ -27,6 +30,9 @@ export default class GameBoard extends Component {
                     <Game
                         handleFinishGameClick={this.handleFinishGameClick}
                     />
+                }
+                {this.state.gameFinished &&
+                    <p>Game finished</p>
                 }
             </div>
         );
