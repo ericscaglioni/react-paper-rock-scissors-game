@@ -1,12 +1,34 @@
-import React from 'react';
-import Timer from '../Timer/Timer.js';
-import UserOptions from '../UserOptions/UserOptions.js';
+import React, { Component } from 'react';
+import Game from '../Game/Game.js';
 
-const GameBoard = (props) => (
-    <div>
-        <Timer handleTimeOut={props.handleTimeOut} />
-        <UserOptions handleUserPick={props.handleUserPick} />
-    </div>
-);
+export default class GameBoard extends Component {
 
-export default GameBoard;
+    constructor() {
+        super();
+
+        this.state = {
+            gameStarted: false,
+            gameFinished: false
+        };
+    }
+
+    handleStartGameClick = () => (this.setState(() => ({gameStarted: true})));
+
+    handleFinishGameClick = () => (this.setState(() => ({
+        gameStarted: false,
+        gameFinished: true
+    })));
+
+    render() {
+        return (
+            <div>
+                {!this.state.gameStarted && <button onClick={this.handleStartGameClick}>Start</button>}
+                {this.state.gameStarted &&
+                    <Game
+                        handleFinishGameClick={this.handleFinishGameClick}
+                    />
+                }
+            </div>
+        );
+    }
+}

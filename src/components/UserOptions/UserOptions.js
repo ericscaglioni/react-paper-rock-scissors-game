@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
+import UserOption from '../UserOption/UserOption.js';
 
-export default class UserOptions extends Component {
+const UserOptions = (props) => (
+    <div>
+        <ul>
+            {
+                props.gameOptions.map((option, optionIndex) => (
+                    <UserOption
+                        key={option}
+                        optionText={option}
+                        optionIndex={optionIndex++}
+                        handleSelectOption={props.handleSelectOption}
+                    />
+                ))
+            }
+        </ul>
+    </div>
+);
 
-    handleUserPick = (e) => {
-        const userPickValue = e.target.innerHTML;
-        this.props.handleUserPick(userPickValue);
-    };
-
-    render() {
-        return (
-            <div>
-                <ul>
-                    <li><button onClick={this.handleUserPick}>Paper</button></li>
-                    <li><button onClick={this.handleUserPick}>Rock</button></li>
-                    <li><button onClick={this.handleUserPick}>Scissors</button></li>
-                </ul>
-            </div>
-        );
-    };
-}
+export default UserOptions;
