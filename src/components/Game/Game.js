@@ -10,9 +10,10 @@ export default class Game extends React.Component {
             round: 1,
             userWins: 0,
             computerWins: 0,
+            roundFinished: false,
+            roundResultMessage: undefined,
             userSelectedOption: undefined,
-            computerSelectedOption: undefined,
-            resultMessage: undefined
+            computerSelectedOption: undefined
         }
 
         this.gameOptions = [
@@ -36,35 +37,41 @@ export default class Game extends React.Component {
         this.setState((prevState) => ({
             userSelectedOption: this.getGameOptionDescriptionByIndex(userSelectedIndex),
             computerSelectedOption: this.getGameOptionDescriptionByIndex(computerSelectedIndex),
-            resultMessage: result === 0 ? 'DRAW' : result === 1 ? 'YOU WIN' : 'YOU LOSE',
             userWins: result === 1 ? prevState.userWins + 1 : prevState.userWins,
-            computerWins: result === 2 ? prevState.computerWins + 1 : prevState.computerWins
+            computerWins: result === 2 ? prevState.computerWins + 1 : prevState.computerWins,
+            roundResultMessage: result === 0 ? 'DRAW' : result === 1 ? 'YOU WIN' : 'YOU LOSE',
+            roundFinished: true
         }));
     };
 
     handleNextRoundClick = () => {
         this.setState((prevState) => ({
             round: prevState.round + 1,
-            resultMessage: undefined
+            roundFinished: false
         }));
+    };
+
+    handleFinishGameClick = () => {
+        this.props.handleFinishGameClick(this.state.round, this.state.userWins, this.state.computerWins);
     };
 
     render() {
         return (
             <div>
-                {!this.state.resultMessage &&
+                {!this.state.roundFinished &&
                     <UserOptions
                         gameOptions={this.gameOptions}
                         handleSelectOption={this.handleSelectOption}
+                        gameStarted={this.props.gameStarted}
                     />
                 }
-                {this.state.resultMessage &&
+                {this.state.roundFinished &&
                     <RoundResult 
-                        resultMessage={this.state.resultMessage}
+                        resultMessage={this.state.roundResultMessage}
                         userSelectedOption={this.state.userSelectedOption}
                         computerSelectedOption={this.state.computerSelectedOption}
                         handleNextRoundClick={this.handleNextRoundClick}
-                        handleFinishGameClick={this.props.handleFinishGameClick}
+                        handleFinishGameClick={this.handleFinishGameClick}
                     />
                 }
             </div>
